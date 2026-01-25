@@ -9,52 +9,28 @@ model_path = hf_hub_download(repo_id="jarpan03/engine-predictive-maintenance-mod
 # Load the model
 model = joblib.load(model_path)
 
-# Streamlit UI for Customer Churn Prediction
-st.title("Tourism Package Prediction")
-st.write("Fill the customer details below to predict if they'll purchase a travel package")
+# Streamlit UI for Predictive Maintenance Prediction
+st.title("Engine Predictive Maintenance Prediction")
+st.write("Fill the engine details below to predict if they'll need a maintenance")
 
 # Collect user input
-Age = st.slider("Age", 18, 70, 30)
-TypeofContact = st.selectbox("Type of Contact", ["Self Enquiry", "Company Invited"])
-CityTier = st.selectbox("City Tier", [1, 2, 3])
-DurationOfPitch = st.slider("Duration of Pitch (mins)", 0, 100, 15)
-Occupation = st.selectbox("Occupation", ["Salaried", "Small Business", "Large Business", "Free Lancer"])
-Gender = st.selectbox("Gender", ["Male", "Female", "Others"])
-NumberOfPersonVisiting = st.slider("Number of Persons Visiting", 1, 5, 2)
-NumberOfFollowups = st.slider("Number of Follow-ups", 1, 10, 3)
-ProductPitched = st.selectbox("Product Pitched", ["Basic", "Standard", "Deluxe", "Super Deluxe", "King"])
-PreferredPropertyStar = st.selectbox("Preferred Property Star", [1, 2, 3, 4, 5])
-MaritalStatus = st.selectbox("Marital Status", ["Married", "Single", "Divorced", "Unmarried"])
-NumberOfTrips = st.slider("Number of Trips", 1, 20, 3)
-Passport = st.selectbox("Has Passport?", ["Yes", "No"])
-PitchSatisfactionScore = st.slider("Pitch Satisfaction Score", 1, 5, 3)
-OwnCar = st.selectbox("Owns a Car?", ["Yes", "No"])
-NumberOfChildrenVisiting = st.slider("Number of Children Visited", 0, 5, 1)
-Designation = st.selectbox("Designation", ["Executive", "Manager", "AVP", "VP", "Sr. Manager"])
-MonthlyIncome = st.number_input("Monthly Income", min_value=1000.0, value=30000.0)
+Engine_RPM = st.number_input("Engine_RPM", min_value=1000.0, value=30000.0)
+Lub_Oil_Pressure = st.number_input("Lub_Oil_Pressure", min_value=1000.0, value=30000.0,step=0.0000000001,format="%.10f")
+Fuel_Pressure = st.number_input("Fuel_Pressure", min_value=1000.0, value=30000.0)
+Coolant_Pressure = st.number_input("Coolant_Pressure", min_value=1000.0, value=30000.0)
+Lub_Oil_Temperature = st.number_input("Lub_Oil_Temperature", min_value=1000.0, value=30000.0)
+Coolant_Temperature = st.number_input("Coolant_Temperature", min_value=1000.0, value=30000.0)
 
 # ----------------------------
 # Prepare input data
 # ----------------------------
 input_data = pd.DataFrame([{
-    'Age': Age,
-    'TypeofContact': TypeofContact,
-    'CityTier': CityTier,
-    'DurationOfPitch': DurationOfPitch,
-    'Occupation': Occupation,
-    'Gender': Gender,
-    'NumberOfPersonVisiting': NumberOfPersonVisiting,
-    'NumberOfFollowups': NumberOfFollowups,
-    'ProductPitched': ProductPitched,
-    'PreferredPropertyStar': PreferredPropertyStar,
-    'MaritalStatus': MaritalStatus,
-    'NumberOfTrips': NumberOfTrips,
-    'Passport': 1 if Passport == "Yes" else 0,
-    'PitchSatisfactionScore': PitchSatisfactionScore,
-    'OwnCar': 1 if OwnCar == "Yes" else 0,
-    'NumberOfChildrenVisitings': NumberOfChildrenVisiting,
-    'Designation': Designation,
-    'MonthlyIncome': MonthlyIncome
+    'Engine rpm': Engine_RPM,
+    'Lub oil pressure': Lub_Oil_Pressure,
+    'Fuel pressure': Fuel_Pressure,
+    'Coolant pressure': Coolant_Pressure,
+    'lub oil temp': Lub_Oil_Temperature,
+    'Coolant temp': Coolant_Temperature
 }])
 
 # Set the classification threshold
@@ -64,5 +40,5 @@ classification_threshold = 0.45
 if st.button("Predict"):
     prob = model.predict_proba(input_data)[0,1]
     pred = int(prob >= classification_threshold)
-    result = "will purchase the travel package" if pred == 1 else "is unlikely to purchase"
-    st.write(f"Prediction: Customer {result}")
+    result = "will need the engine maintenance" if pred == 1 else "maintenance not needed"
+    st.write(f"Prediction: Engine {result}")
