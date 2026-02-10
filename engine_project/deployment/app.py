@@ -40,5 +40,5 @@ classification_threshold = 0.45
 if st.button("Predict"):
     prob = model.predict_proba(input_data)[0,1]
     pred = int(prob >= classification_threshold)
-    result = "will need the engine maintenance" if pred == 1 else "maintenance not needed"
+    result = "will need maintenance!" if pred == 1 else "doesn't need any maintenance!"
     st.write(f"Prediction: Engine {result}")
