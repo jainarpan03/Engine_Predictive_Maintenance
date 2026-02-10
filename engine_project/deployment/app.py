@@ -10,7 +10,7 @@ model_path = hf_hub_download(repo_id="jarpan03/engine-predictive-maintenance-mod
 model = joblib.load(model_path)
 
 # Streamlit UI for Predictive Maintenance Prediction
-st.title("Engine Predictive Maintenance Prediction")
+st.title("Engine Maintenance Prediction")
 st.write("Fill the engine details below to predict if they'll need a maintenance")
 
 # Collect user input 
