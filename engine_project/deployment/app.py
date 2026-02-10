@@ -14,12 +14,12 @@ st.title("Engine Predictive Maintenance Prediction")
 st.write("Fill the engine details below to predict if they'll need a maintenance")
 
 # Collect user input
-Engine_RPM = st.number_input("Engine_RPM", min_value=1, value=10000)
-Lub_Oil_Pressure = st.number_input("Lub_Oil_Pressure", min_value=0.0, value=0.00)
-Fuel_Pressure = st.number_input("Fuel_Pressure", min_value=0.0, value=0.0)
-Coolant_Pressure = st.number_input("Coolant_Pressure", min_value=0.0, value=0.0)
-Lub_Oil_Temperature = st.number_input("Lub_Oil_Temperature", min_value=1.0, value=0.0)
-Coolant_Temperature = st.number_input("Coolant_Temperature", min_value=1.0, value=0.0)
+Engine_RPM = st.number_input("Engine_RPM", min_value=1, max_value=10000.0, value=100)
+Lub_Oil_Pressure = st.number_input("Lub_Oil_Pressure", min_value=0.0, value=0.00,step=0.0000000001,format="%.10f")
+Fuel_Pressure = st.number_input("Fuel_Pressure", min_value=0.0, value=0.0,step=0.0000000001,format="%.10f")
+Coolant_Pressure = st.number_input("Coolant_Pressure", min_value=0.0, value=0.0,step=0.0000000001,format="%.10f")
+Lub_Oil_Temperature = st.number_input("Lub_Oil_Temperature", min_value=0.0, value=1.0,step=0.0000000001,format="%.10f")
+Coolant_Temperature = st.number_input("Coolant_Temperature", min_value=0.0, value=1.0,step=0.0000000001,format="%.10f")
 
 # ----------------------------
 # Prepare input data
